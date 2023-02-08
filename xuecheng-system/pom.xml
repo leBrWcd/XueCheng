@@ -6,20 +6,16 @@
         <groupId>com.xuecheng</groupId>
         <artifactId>Xuecheng-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../Xuecheng-parent</relativePath><!-- lookup parent from repository -->
+        <relativePath>../Xuecheng-parent</relativePath>
     </parent>
-
-    <groupId>com.xuecheng</groupId>
-    <artifactId>Xucheng-content</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>Xucheng-content</name>
-
+    <artifactId>xuecheng-system</artifactId>
+    <name>xuecheng-system</name>
+    <description>xuecheng-system</description>
     <packaging>pom</packaging>
 
     <modules>
-        <module>Xuecheng-content-model</module>
-        <module>Xuecheng-content-api</module>
-        <module>Xuecheng-content-service</module>
+        <module>xuecheng-system-api</module>
+        <module>xuecheng-system-service</module>
+        <module>xuecheng-system-model</module>
     </modules>
-
 </project>
