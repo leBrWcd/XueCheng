@@ -2,6 +2,8 @@ package com.xuecheng.content.api;
 
 import com.xuecheng.content.base.model.PageParams;
 import com.xuecheng.content.base.model.PageResult;
+import com.xuecheng.content.model.dto.AddCourseDto;
+import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.QueryCourseParamsDto;
 import com.xuecheng.content.model.po.CourseBase;
 import com.xuecheng.content.service.CourseBaseInfoService;
@@ -30,8 +32,15 @@ public class CourseBaseInfoController {
     @ApiOperation("课程查询接口")
     @PostMapping("/course/list")
     public PageResult<CourseBase> list(PageParams params, @RequestBody QueryCourseParamsDto queryCourseParamsDto) {
-        log.info("======课程查询传递参数:====== {}",queryCourseParamsDto.toString());
-        return courseBaseInfoService.list(params,queryCourseParamsDto);
+        log.info("======课程查询传递参数:====== {}", queryCourseParamsDto.toString());
+        return courseBaseInfoService.list(params, queryCourseParamsDto);
     }
+
+    @ApiOperation("新增课程基础信息")
+    @PostMapping("/course")
+    public CourseBaseInfoDto createCourseBase(@RequestBody AddCourseDto addCourseDto) {
+        return courseBaseInfoService.addCourseBase(111L,addCourseDto);
+    }
+
 
 }

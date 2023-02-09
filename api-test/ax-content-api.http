@@ -8,3 +8,30 @@ Content-Type: application/json
 }
 
 <> 2023-02-07T222646.200.json
+
+### 课程分类接口
+GET {{content_host}}/content/course-category/tree-nodes
+
+### 创建课程
+POST {{content_host}}/content/course
+Content-Type: application/json
+
+{
+  "mt": "1-1",
+  "st": "1-1-1",
+  "name": "",
+  "pic": "",
+  "teachmode": "200002",
+  "users": "初级人员",
+  "tags": "",
+  "grade": "204001",
+  "description": "",
+  "objectives": "",
+  "charge": "201000",
+  "price": 0,
+  "originalPrice": 0,
+  "qq": "",
+  "wechat": "",
+  "phone": "",
+  "validDays": 365
+}
