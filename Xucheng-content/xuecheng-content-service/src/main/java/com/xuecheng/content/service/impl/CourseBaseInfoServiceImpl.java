@@ -111,22 +111,32 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         CourseMarket courseMarket = new CourseMarket();
         courseMarket.setId(courseId);
         BeanUtils.copyProperties(dto, courseMarket);
-        // 收费课程必须写价格且价格大于0 201000:"免费"  201001:"收费"
-        String charge = dto.getCharge();
-        if ("201001".equals(charge)) {
-            BigDecimal price = dto.getPrice();
-            if (price == null || price.floatValue() <= 0) {
-                throw new XuechengException("课程设置了收费价格不能为空且必须大于0");
-            }
-        }
-        // 新增
-        int insert2 = courseMarketMapper.insert(courseMarket);
+        int insert2 = saveOrUpdateCourseMarket(courseMarket);
 
         if (insert1 <= 0 || insert2 <= 0) {
             throw new RuntimeException("新增课程失败");
         }
         // 添加成功
         return getCourseBaseInfo(courseId);
+    }
+
+    /**
+     * 新增或者修改课程营销信息
+     * @param courseMarket
+     * @return
+     */
+    private int saveOrUpdateCourseMarket(CourseMarket courseMarket) {
+        // 收费课程必须写价格且价格大于0 201000:"免费"  201001:"收费"
+        String charge = courseMarket.getCharge();
+        if ("201001".equals(charge)) {
+            BigDecimal price = courseMarket.getPrice();
+            if (price == null || price.floatValue() <= 0) {
+                throw new XuechengException("课程设置了收费价格不能为空且必须大于0");
+            }
+        }
+        // 新增或者更新
+        boolean b = courseMarketService.saveOrUpdate(courseMarket);
+        return b?1:-1;
     }
 
     /**
@@ -180,19 +190,9 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         if (courseMarketEdit == null) {
             courseMarketEdit = new CourseMarket();
         }
-        // 收费规则
-        String charge = editCourseDto.getCharge();
-        // 收费课程必须写价格
-        if (charge.equals("201001")) {
-            BigDecimal price = editCourseDto.getPrice();
-            if (price == null || price.floatValue() <= 0) {
-                XuechengException.cast("课程设置了收费价格不能为空且必须大于0");
-            }
-        }
         BeanUtils.copyProperties(editCourseDto, courseMarketEdit);
-        // 没有则新建,有则修改
-        boolean saveOrUpdate = courseMarketService.saveOrUpdate(courseMarketEdit);
-        if (update1 <= 0 && !saveOrUpdate) {
+        int update2 = saveOrUpdateCourseMarket(courseMarketEdit);
+        if (update1 <= 0 || update2 <= 0) {
             throw new XuechengException("修改课程失败!");
         }
         // 返回

@@ -22,6 +22,82 @@
         <result column="change_date" property="changeDate" />
     </resultMap>
 
+    <!-- 树形查询映射结果 -->
+    <resultMap id="treeNodesData" type="com.xuecheng.content.model.dto.TeacherPlanDto" >
+        <!-- 一级数据映射 -->
+        <id column="one_id" property="id" />
+        <result column="one_pname" property="pname" />
+        <result column="one_parentid" property="parentid" />
+        <result column="one_grade" property="grade" />
+        <result column="one_mediaType" property="mediaType" />
+        <result column="one_stratTime" property="startTime" />
+        <result column="one_endTime" property="endTime" />
+        <result column="one_orderby" property="orderby" />
+        <result column="one_courseId" property="courseId" />
+        <result column="one_coursePubId" property="coursePubId" />
+        <!-- 一级包含多个二级数据 teachPlanTreeNodes -->
+        <collection property="teachPlanTreeNodes" ofType="com.xuecheng.content.model.dto.TeacherPlanDto">
+            <id column="two_id" property="id" />
+            <result column="two_pname" property="pname" />
+            <result column="two_parentid" property="parentid" />
+            <result column="two_grade" property="grade" />
+            <result column="two_mediaType" property="mediaType" />
+            <result column="two_stratTime" property="startTime" />
+            <result column="two_endTime" property="endTime" />
+            <result column="two__orderby" property="orderby" />
+            <result column="two_courseId" property="courseId" />
+            <result column="two_coursePubId" property="coursePubId" />
+            <!-- 二级里面包含媒资信息 -->
+            <association property="teachplanMedia" javaType="com.xuecheng.content.model.po.TeachplanMedia">
+                <result column="teachplanMeidaId" property="id" />
+                <result column="mediaFilename" property="mediaFilename" />
+                <result column="mediaId" property="mediaId" />
+                <result column="two_id" property="teachplanId" />
+                <result column="two_courseId" property="courseId" />
+                <result column="two_coursePubId" property="coursePubId" />
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="treeNodes" resultMap="treeNodesData">
+        select
+            one.id one_id,
+            one.pname one_pname,
+            one.parentid one_parentid,
+            one.grade one_grade,
+            one.media_type one_mediaType,
+            one.start_time one_stratTime,
+            one.end_time one_endTime,
+            one.orderby one_orderby,
+            one.course_id one_courseId,
+            one.course_pub_id one_coursePubId,
+            two.id two_id,
+            two.pname two_pname,
+            two.parentid two_parentid,
+            two.grade two_grade,
+            two.media_type two_mediaType,
+            two.start_time two_stratTime,
+            two.end_time two_endTime,
+            two.orderby two_orderby,
+            two.course_id two_courseId,
+            two.course_pub_id two_coursePubId,
+            tm.media_fileName mediaFilename,
+            tm.id teachplanMeidaId,
+            tm.media_id mediaId
+        from teachplan one
+        # 有bug,如果某章节下面没有小节,就查询不出来 这里第一个连接不能采用内连接,内连接求的是二者的公有部分
+        # 如果某章节下面没有小节,此时的two.parentId是没有的,此时连接无效了,应该采用左连接,即使右表没有,左表有的部分也能查出来
+        # inner join teachplan two
+        left join teachplan two
+        on one.id = two.parentid
+        left join teachplan_media tm
+        on tm.teachplan_id = two.id
+        where one.parentid = '0' and one.course_id = #{courseId}
+        order by one.orderby,two.orderby
+    </select>
+
+
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, pname, parentid, grade, media_type, start_time, end_time, description, timelength, orderby, course_id, course_pub_id, status, is_preview, create_date, change_date
