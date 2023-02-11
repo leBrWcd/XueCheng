@@ -1,4 +1,4 @@
-package com.xuecheng.content.base.execption;
+package com.xuecheng.base.execption;
 
 import java.io.Serializable;
 

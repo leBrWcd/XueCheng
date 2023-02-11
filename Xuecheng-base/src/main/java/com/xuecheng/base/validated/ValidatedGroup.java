@@ -1,4 +1,4 @@
-package com.xuecheng.content.base.validated;
+package com.xuecheng.base.validated;
 
 /**
  * Description 参数校验分组

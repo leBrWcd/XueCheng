@@ -1,4 +1,4 @@
-package com.xuecheng.content.base.execption;
+package com.xuecheng.base.execption;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

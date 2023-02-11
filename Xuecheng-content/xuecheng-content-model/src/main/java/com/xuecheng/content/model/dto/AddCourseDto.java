@@ -1,6 +1,6 @@
 package com.xuecheng.content.model.dto;
 
-import com.xuecheng.content.base.validated.ValidatedGroup;
+import com.xuecheng.base.validated.ValidatedGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

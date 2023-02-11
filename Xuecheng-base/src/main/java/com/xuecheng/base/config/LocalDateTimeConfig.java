@@ -1,4 +1,4 @@
-package com.xuecheng.content.base.config;/**
+package com.xuecheng.base.config;/**
  * @author lebrwcd
  * @date 2023/2/5
  * @note

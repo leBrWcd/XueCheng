@@ -1,4 +1,4 @@
-package com.xuecheng.content.base.execption;
+package com.xuecheng.base.execption;
 
 /**
  * Description 公共异常

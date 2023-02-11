@@ -1,4 +1,4 @@
-package com.xuecheng.content.base.model;/**
+package com.xuecheng.base.model;/**
  * @author lebrwcd
  * @date 2023/2/4
  * @note

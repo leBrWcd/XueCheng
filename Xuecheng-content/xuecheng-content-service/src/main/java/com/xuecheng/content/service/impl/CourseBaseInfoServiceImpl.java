@@ -2,9 +2,9 @@ package com.xuecheng.content.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xuecheng.content.base.execption.XuechengException;
-import com.xuecheng.content.base.model.PageParams;
-import com.xuecheng.content.base.model.PageResult;
+import com.xuecheng.base.execption.XuechengException;
+import com.xuecheng.base.model.PageParams;
+import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.mapper.CourseBaseMapper;
 import com.xuecheng.content.mapper.CourseCategoryMapper;
 import com.xuecheng.content.mapper.CourseMarketMapper;

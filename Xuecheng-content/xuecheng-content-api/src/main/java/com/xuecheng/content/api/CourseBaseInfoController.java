@@ -1,8 +1,8 @@
 package com.xuecheng.content.api;
 
-import com.xuecheng.content.base.model.PageParams;
-import com.xuecheng.content.base.model.PageResult;
-import com.xuecheng.content.base.validated.ValidatedGroup;
+import com.xuecheng.base.model.PageParams;
+import com.xuecheng.base.model.PageResult;
+import com.xuecheng.base.validated.ValidatedGroup;
 import com.xuecheng.content.model.dto.AddCourseDto;
 import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.EditCourseDto;
