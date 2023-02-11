@@ -28,6 +28,11 @@ public class TeacherPlanController {
     @Autowired
     private TeacherPlanService teacherPlanService;
 
+    /**
+     * 查询课程计划-树形结构
+     * @param courseId
+     * @return
+     */
     @ApiOperation("查询课程计划树形结构")
     @ApiImplicitParam(value = "courseId",name = "课程Id",required = true,dataType
             = "Long",paramType = "path")
@@ -36,9 +41,23 @@ public class TeacherPlanController {
         return teacherPlanService.treeNodes(courseId);
     }
 
+    /**
+     * 新增或更新课程计划
+     * @param dto
+     */
     @PostMapping
     public void SaveOrUpdate(@RequestBody SaveOrUpdateTeachPlanDto dto) {
         teacherPlanService.saveOrToUpdate(dto);
+    }
+
+    /**
+     * 删除课程计划 TODO: 删除章节前端有bug，同时后续考虑删除后 orderby 变量是否修改
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public String DeleteTeachPlan(@PathVariable("id") Long id) {
+        return teacherPlanService.removeTeachPlan(id);
     }
 
 }

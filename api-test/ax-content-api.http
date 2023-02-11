@@ -1,5 +1,5 @@
 ### 课程查询接口
-POST {{content_host}}/content/course/list?pageNo=1&pageSize=10
+POST {{gateway_host}}/content/course/list?pageNo=1&pageSize=10
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 <> 2023-02-07T222646.200.json
 
 ### 课程分类接口
-GET {{content_host}}/content/course-category/tree-nodes
+GET {{gateway_host}}/content/course-category/tree-nodes
 
 ### 创建课程
 POST {{content_host}}/content/course
@@ -75,3 +75,6 @@ Content-Type: application/json
   "grade": 2,
   "pname": "第一节: 测试哦 "
 }
+
+### 删除课程计划
+DELETE {{content_host}}/content/teachplan/280

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Description 课程计划业务实现
@@ -57,5 +58,26 @@ public class TeacherPlanServiceImpl extends ServiceImpl<TeachplanMapper, Teachpl
             teachplan.setCreateDate(LocalDateTime.now());
             baseMapper.insert(teachplan);
         }
+    }
+
+    @Override
+    public String removeTeachPlan(Long id) {
+        // 需要判断删除的是小节还是章节，如果是章节，需要先删除其下面所有的小节
+        Teachplan teachplan = teachplanMapper.selectById(id);
+        if (teachplan.getParentid() == 0) {
+            // 章节
+            LambdaQueryWrapper<Teachplan> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Teachplan::getParentid,id);
+            List<Teachplan> teachplans = baseMapper.selectList(wrapper);
+            List<Long> idList = teachplans.stream().map( e -> {
+                return e.getId();
+            }).collect(Collectors.toList());
+            log.info("idList ===== {}" ,idList.size());
+            return baseMapper.deleteBatchIds(idList) > 0 ? "删除章节成功！" : "删除章节失败！";
+        } else {
+            // 小节，直接删除
+            return baseMapper.deleteById(id) > 0 ? "删除小节成功！" : "删除小节失败！";
+        }
+
     }
 }
