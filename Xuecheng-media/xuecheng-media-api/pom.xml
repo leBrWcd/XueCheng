@@ -30,6 +30,11 @@
             <artifactId>Xuecheng-media-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!--事务代理-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
 
         <!--cloud的基础环境包-->
         <dependency>

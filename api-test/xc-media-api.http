@@ -1,0 +1,20 @@
+### 媒资管理服务 接口api
+
+# 上传图片到minio
+POST {{media_host}}/media/upload/coursefile
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="filedata"; filename="avatar.jpg"
+Content-Type: application/octet-stream
+
+< D:/Users/Lebr7Wcd/Pictures/avatar.jpg
+
+### 查询媒资管理列表
+POST {{gateway_host}}/media/files?pageNo=1&pageSize=10
+Content-Type: application/json
+
+{
+  "auditStatus": "002003",
+  "courseName": ""
+}
