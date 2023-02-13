@@ -11,7 +11,7 @@ Content-Type: application/octet-stream
 < D:/Users/Lebr7Wcd/Pictures/avatar.jpg
 
 ### 查询媒资管理列表
-POST {{gateway_host}}/media/files?pageNo=1&pageSize=10
+POST {{media_host}}/media/files?pageNo=1&pageSize=10
 Content-Type: application/json
 
 {

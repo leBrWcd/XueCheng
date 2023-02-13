@@ -31,6 +31,8 @@ public class MediaFilesController {
     @Autowired
     MediaFileService mediaFileService;
 
+
+
     @ApiOperation("上传文件")
     @RequestMapping(value = "/upload/coursefile",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public MediaFiles upload(@RequestPart("filedata") MultipartFile upload,
