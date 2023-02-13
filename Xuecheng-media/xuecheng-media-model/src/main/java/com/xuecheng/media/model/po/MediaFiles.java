@@ -60,6 +60,12 @@ public class MediaFiles implements Serializable {
      */
     private String fileId;
 
+
+    /**
+     * 存储路径
+     */
+    private String filePath;
+
     /**
      * 媒资文件访问地址
      */

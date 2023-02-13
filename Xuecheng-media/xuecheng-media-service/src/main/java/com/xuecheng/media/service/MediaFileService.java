@@ -2,9 +2,15 @@ package com.xuecheng.media.service;
 
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
+import com.xuecheng.base.model.RestResponse;
 import com.xuecheng.media.model.dto.QueryMediaParamsDto;
 import com.xuecheng.media.model.dto.UploadFileParamsDto;
 import com.xuecheng.media.model.po.MediaFiles;
+import io.minio.errors.*;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Mr.M
@@ -37,7 +43,47 @@ public interface MediaFileService {
      */
     MediaFiles upload(Long companyId, byte[] bytes, UploadFileParamsDto dto, String folder, String objectName);
 
-
+    /**
+     * 保存到数据库
+     * @param companyId
+     * @param dto
+     * @param objectName
+     * @param bucket
+     * @param mediaFileId
+     * @return
+     */
     MediaFiles SaveMediaFileToDb(Long companyId, UploadFileParamsDto dto, String objectName, String bucket, String mediaFileId);
 
+    /**
+     * 检查文件是否存在于数据库和minio
+     * @param fileMd5
+     * @return
+     */
+    RestResponse<Boolean> checkfile(String fileMd5) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
+    /**
+     * 检查分片文件是否存在
+     * @param fileMd5
+     * @param chunk
+     * @return
+     */
+    RestResponse<Boolean> checkchunk(String fileMd5, int chunk);
+
+    /**
+     * 上传文件分块
+     * @param bytes
+     * @param fileMd5
+     * @param chunk
+     * @return
+     */
+    RestResponse uploadchunk(byte[] bytes, String fileMd5, int chunk);
+
+    /**
+     * 合并文件分块
+     * @param
+     * @param fileMd5
+     * @param chunkTotal
+     * @return
+     */
+    RestResponse mergechunks(Long companyId,String fileMd5,int chunkTotal,UploadFileParamsDto uploadFileParamsDto);
 }
